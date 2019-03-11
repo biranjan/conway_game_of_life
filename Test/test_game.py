@@ -4,6 +4,7 @@ def load_src(name, fpath):
  
 load_src("game_of_life", "../game_of_life.py")
 import numpy as np
+import pytest
 import game_of_life
 from game_of_life import generation, survival
 
