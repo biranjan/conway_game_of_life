@@ -93,21 +93,24 @@ def generate_first_universe(
     universe[x_start:x_end, y_start:y_end] = seed_array
     return universe
 
-def matplot_animation(first_universe: np.array,cmap="Purples",uni_cycle:int=30):
+
+def matplot_animation(first_universe: np.array, cmap="Purples", uni_cycle: int = 30,save_ani: bool = True):
     universe = first_universe
     quality = 200
     fig = plt.figure(dpi=200)
     plt.axis("off")
     ims = []
+    test_list = []
     for i in range(uni_cycle):
-        ims.append((plt.imshow(generate_first_universe(), cmap=cmap),))
+        test_list.append(universe)
+        ims.append((plt.imshow(universe, cmap=cmap),))
         universe = generation(universe)
-    im_ani = animation.ArtistAnimation(fig,ims, interval=200, blit=True)
-    
-    return im_ani
+    im_ani = animation.ArtistAnimation(fig, ims, interval=200, blit=True)
+    if save_ani:
+        im_ani.save(('eample1' + ".gif"), writer="imagemagick")
+    return im_ani, test_list
 
 if __name__ == "__main__":
-    pl_anm = matplot_animation(generate_first_universe())
-    HTML(pl_anm.to_jshtml())
+    pl_anm, _ = matplot_animation(generate_first_universe())
+    #HTML(pl_anm.to_jshtml())
 
-   
